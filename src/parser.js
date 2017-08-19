@@ -33,7 +33,8 @@ function toMarkdown(element, context) {
 
         // opening the element
         switch (element['#name']) {
-          case 'ref': return s + markdown.link(toMarkdown(element.$$), '#' + element.$.refid, true);
+          // case 'ref': return s + markdown.link(toMarkdown(element.$$), '#' + element.$.refid, true);
+          case 'ref': return s + toMarkdown(element.$$);
           case '__text__': s = element._; break;
           case 'emphasis': s = '*'; break;
           case 'bold': s = '**'; break;
@@ -99,7 +100,8 @@ function toMarkdown(element, context) {
           case 'entry': s = markdown.escape.cell(s) + '|'; break;
           case 'programlisting': s += '```\n'; break;
           case 'codeline': s += '\n'; break;
-          case 'ulink': s = markdown.link(s, element.$.url); break;
+          // case 'ulink': s = markdown.link(s, element.$.url); break;
+          case 'ulink': break;
           case 'itemizedlist': s += '\n'; break;
           case 'listitem': s += '\n'; break;
           case 'entry': s = ' | '; break;
@@ -201,7 +203,8 @@ module.exports = {
         m = m.concat(toMarkdown(memberdef.type), ' ');
         m = m.concat(memberdef.$.explicit  == 'yes' ? ['explicit', ' '] : []);
         // m = m.concat(memberdef.name[0]._);
-        m = m.concat(markdown.link(member.name, '#' + member.refid, true));
+        // m = m.concat(markdown.link(member.name, '#' + member.refid, true));
+        m = m.concat(member.name);
         m = m.concat('(');
         if (memberdef.param) {
           memberdef.param.forEach(function (param, argn) {
@@ -224,7 +227,8 @@ module.exports = {
         m = m.concat(memberdef.$.mutable == 'yes' ? ['mutable', ' '] : []);
         m = m.concat(toMarkdown(memberdef.type), ' ');
         // m = m.concat(memberdef.name[0]._);
-        m = m.concat(markdown.link(member.name, '#' + member.refid, true));
+        // m = m.concat(markdown.link(member.name, '#' + member.refid, true));
+        m = m.concat(member.name);
         break;
 
       case 'enum':
@@ -240,12 +244,14 @@ module.exports = {
           });
         }
         // m.push(member.kind + ' ' + member.name);
-        m = m.concat([member.kind, ' ', markdown.link(member.name, '#' + member.refid, true)]);
+        // m = m.concat([member.kind, ' ', markdown.link(member.name, '#' + member.refid, true)]);
+        m = m.concat([member.kind, ' ', member.name]);
         break;
 
       default:
         // m.push(member.kind + ' ' + member.name);
-        m = m.concat([member.kind, ' ', markdown.link(member.name, '#' + member.refid, true)]);
+        // m = m.concat([member.kind, ' ', markdown.link(member.name, '#' + member.refid, true)]);
+        m = m.concat([member.kind, ' ', member.name]);
         break;
     }
 
@@ -345,7 +351,8 @@ module.exports = {
       }.bind(this));
     }
 
-    compound.proto = helpers.inline([compound.kind, ' ', markdown.link(compound.name, '#' + compound.refid, true)]);
+    // compound.proto = helpers.inline([compound.kind, ' ', markdown.link(compound.name, '#' + compound.refid, true)]);
+    compound.proto = helpers.inline([compound.kind, ' ', compound.name]);
 
     // kind specific parsing
     switch (compound.kind) {

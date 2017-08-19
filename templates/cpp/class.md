@@ -13,14 +13,6 @@
 
 {{detaileddescription}}
 
-## Summary
-
- Members                        | Descriptions                                
---------------------------------|---------------------------------------------
-{{#each filtered.compounds}}{{cell proto}}        | {{cell summary}}
-{{/each}}{{#each filtered.members}}{{cell proto}} | {{cell summary}}
-{{/each}}
-
 ## Members
 
 {{#each filtered.compounds}}
