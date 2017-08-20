@@ -37,6 +37,7 @@ module.exports = {
         // 'variable',
         'public-attrib',
         'public-func',
+        'public-static-func',
         'protected-attrib',
         'protected-func'
       ],
